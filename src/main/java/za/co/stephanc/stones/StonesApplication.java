@@ -16,9 +16,7 @@ import reactor.core.publisher.FluxSink;
 import java.util.concurrent.atomic.AtomicLong;
 
 @SpringBootApplication
-@RestController
 public class StonesApplication {
-
     public static void main(String[] args) {
         SpringApplication.run(StonesApplication.class, args);
     }
