@@ -6,6 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link data-th-href="@{/css/bootstrap.min.css}" rel="stylesheet">
     <link data-th-href="@{/css/main.css}" rel="stylesheet">
+    <script src="webjars/jquery/3.1.1/jquery.min.js"></script>
+    <script src="webjars/bootstrap/3.3.7-1/js/bootstrap.min.js"></script>
 </head>
 <body>
 
@@ -13,10 +15,17 @@
 
     <div class="row">
         <div id="title">
-            <h1><span th:text="'Hello, ' + ${uuid}"></span></h1>
+            <h1><span th:text="${uuid}"></span></h1>
+        </div>
+        <div>
+            <form class="text-center border border-light p-5">
+                <input type="text" class="form-control mb-4" placeholder="Session ID" id="uuid" name="uuid" th:value="${uuid}" />
+                <input type="text" class="form-control mb-4" id="name" placeholder="Name" name="name" />
+                <input type="text" class="form-control mb-4" id="message" placeholder="Message" name="message"  />
+                <input type="button" id="send" value="Send" class="btn btn-info btn-block"/>
+            </form>
         </div>
 
-        <input type="hidden" th:value="${uuid}">
         <table id="comments" class="table table-striped">
             <thead>
             <tr>
@@ -25,7 +34,7 @@
                 <th width="30%">Date</th>
             </tr>
             </thead>
-            <tbody>
+            <tbody id="tbody">
             <tr class="result" data-th-each="comment : ${comments}">
                 <td>[[${comment.author}]]</td>
                 <td>[[${comment.message}]]</td>

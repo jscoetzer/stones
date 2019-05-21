@@ -3,10 +3,7 @@ package za.co.stephanc.stones.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.*;
 import za.co.stephanc.stones.model.Chatroom;
 import za.co.stephanc.stones.repository.ChatroomRepository;
@@ -29,7 +26,6 @@ public class ReactiveController {
     final FluxSink chatSink;
     final FluxProcessor<List<Chatroom>, List<Chatroom>> chatProcessor;
     Flux<Chatroom> events;
-    //final Flux<Chatroom> chats;
 
     @Autowired
     private ChatroomRepository chatroomRepository;
@@ -43,19 +39,6 @@ public class ReactiveController {
         this.chatProcessor = DirectProcessor.create();
         this.chatSink = chatProcessor.sink();
         this.events = Flux.fromStream(chatroomList.stream());
-    }
-
-    @GetMapping("/send")
-    public void test(String message) {
-        sink.next("Message #" + counter.getAndIncrement() + ": " + message);
-    }
-
-    @GetMapping(path = "/chatevents/{number}")
-    public Flux<Integer> slowCountToNumber(@PathVariable("number") String id) {
-        Flux<Integer> dynamicFlux = Flux.create(sink -> {
-            SlowCounter.count(sink, id);
-        });
-        return dynamicFlux;
     }
 
     @GetMapping(path = "/chat", produces = MediaType.TEXT_EVENT_STREAM_VALUE)
@@ -73,9 +56,7 @@ public class ReactiveController {
     ){
         System.out.println("Creating new message");
         Chatroom chatroom = chatroomRepository.findOrCreateById(id);
-        //chatroom.addMessage(sender, message);
-
-        //this.events = Flux.fromStream(chatroomList.stream());
+        chatroom.addMessage(sender, message);
     }
 
 }

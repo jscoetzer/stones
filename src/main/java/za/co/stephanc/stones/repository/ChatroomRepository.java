@@ -9,6 +9,4 @@ public interface ChatroomRepository {
     Chatroom findOrCreateById(String id);
 
     Flux<Chatroom> findById(String id);
-
-    Flux<String> findAll(String id);
 }

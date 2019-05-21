@@ -17,34 +17,14 @@ public class ChatroomRepositoryImplementation implements ChatroomRepository{
 
     public List<Chatroom> chatrooms;
 
-    final FluxProcessor processor;
-    final FluxSink sink;
-
-
     public ChatroomRepositoryImplementation(){
         chatrooms = new ArrayList<>();
-        this.processor = DirectProcessor.create().serialize();
-        this.sink = processor.sink();
-
     }
 
     public Flux<Chatroom> findById(String id){
-        /*Chatroom chatroom = this.chatrooms.stream()
-                .filter(c -> c.getId().equals(id))
-                .findFirst()
-                .orElse(new Chatroom(id));*/
-
-        return Flux.interval(Duration.ofMillis(200))
+        return Flux.interval(Duration.ofMillis(1000))
                 .onBackpressureDrop()
-                .map( m -> generateChatroom(m, id)
-                ).flatMapIterable(x -> x);
-    }
-
-    public Flux<String> findAll(String id){
-
-        return Flux.interval(Duration.ofMillis(200))
-                .onBackpressureDrop()
-                .map( m -> getString(m))
+                .map( m -> getChatroom(m, id))
                 .flatMapIterable(x -> x);
     }
 
@@ -62,16 +42,8 @@ public class ChatroomRepositoryImplementation implements ChatroomRepository{
         return room;
     }
 
-    private List<String> getString(Long interval){
-        System.out.println(interval);
-        return Arrays.asList(interval.toString() + "123123");
-    }
-
-    private List<Chatroom> generateChatroom(Long interval, String id){
-        Chatroom room = new Chatroom("123123");
-        room.addMessage("me", "test");
-
+    private List<Chatroom> getChatroom(Long interval, String id){
+        Chatroom room = findOrCreateById(id);
         return Arrays.asList(room);
     }
-
 }
