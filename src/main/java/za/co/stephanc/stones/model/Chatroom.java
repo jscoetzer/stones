@@ -2,11 +2,14 @@ package za.co.stephanc.stones.model;
 
 import java.util.ArrayList;
 import java.util.List;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class Chatroom {
 
-    private String id;
+    private static final Logger logger = LoggerFactory.getLogger(Chatroom.class);
 
+    private String id;
 
     private List<Message> messages;
 
@@ -23,19 +26,8 @@ public class Chatroom {
     }
 
     public Chatroom(String id){
-        System.out.println("Creating new chatroom " + id);
+        logger.info("Creating new chatroom: " + id);
         this.id = id;
         this.messages = new ArrayList<>();
-    }
-
-
-
-    @Override
-    public String toString(){
-        return "Comment{" +
-                "author='" + id + '\'' +
-                ", message='" + id + '\'' +
-                ", timestamp='" + id + '\'' +
-                '}';
     }
 }

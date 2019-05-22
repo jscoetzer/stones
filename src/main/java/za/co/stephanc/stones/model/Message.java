@@ -1,5 +1,6 @@
 package za.co.stephanc.stones.model;
 
+
 import java.util.Date;
 
 public class Message {
