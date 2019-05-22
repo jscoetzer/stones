@@ -5,16 +5,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.*;
-import za.co.stephanc.stones.model.Chatroom;
+import za.co.stephanc.stones.model.chat.Chatroom;
 import za.co.stephanc.stones.repository.ChatroomRepository;
-import za.co.stephanc.stones.repository.ChatroomRepositoryImplementation;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import java.time.Duration;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.concurrent.atomic.AtomicLong;
 
 @RestController
 public class ReactiveController {

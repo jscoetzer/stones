@@ -1,4 +1,4 @@
-package za.co.stephanc.stones.model;
+package za.co.stephanc.stones.model.chat;
 
 
 import java.util.Date;
