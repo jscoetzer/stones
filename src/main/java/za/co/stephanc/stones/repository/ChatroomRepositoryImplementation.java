@@ -5,7 +5,7 @@ import reactor.core.publisher.DirectProcessor;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.FluxProcessor;
 import reactor.core.publisher.FluxSink;
-import za.co.stephanc.stones.model.Chatroom;
+import za.co.stephanc.stones.model.chat.Chatroom;
 
 import java.time.Duration;
 import java.util.ArrayList;
