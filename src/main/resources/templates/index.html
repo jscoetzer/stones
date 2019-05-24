@@ -13,23 +13,49 @@
 
 <div class="container">
 
-    <div class="row">
-        <div class="container">
-            <div class="jumbotron">
-                <h1>Simple Chat Application</h1>
-                <p>Simple chat application built in Spring Boot, WebFlux, and Thymeleaf using Eventsourcing.</p>
+    <div class="container">
+        <div class="jumbotron">
+            <h1>Simple Chat Application</h1>
+            <p>Simple chat application built in Spring Boot, WebFlux, and Thymeleaf using Eventsourcing.</p>
+        </div>
+    </div>
+
+    <div class="container">
+        <form class="text-center border border-light p-5">
+            <input type="text" class="form-control mb-4" placeholder="Session ID" id="uuid" name="uuid" th:value="${uuid}" />
+            <input type="text" class="form-control mb-4" id="name" placeholder="Name" name="name" />
+            <input type="text" class="form-control mb-4" id="message" placeholder="Message" name="message"  />
+            <input type="button" id="send" value="Send" class="btn btn-info btn-block"/>
+        </form>
+    </div>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-sm">
+                <span class="border rounded border-primary pointer">1</span>
+            </div>
+            <div class="col-sm">
+                <span class="border rounded border-primary not-allowed">1231</span>
+            </div>
+            <div class="col-sm">
+                <span class="border rounded border-primary">1</span>
             </div>
         </div>
-        <div>
-            <form class="text-center border border-light p-5">
-                <input type="text" class="form-control mb-4" placeholder="Session ID" id="uuid" name="uuid" th:value="${uuid}" />
-                <input type="text" class="form-control mb-4" id="name" placeholder="Name" name="name" />
-                <input type="text" class="form-control mb-4" id="message" placeholder="Message" name="message"  />
-                <input type="button" id="send" value="Send" class="btn btn-info btn-block"/>
-            </form>
+        <div class="row">
+            <div class="col-sm">
+                <span class="border rounded border-primary pointer">2</span>
+            </div>
+            <div class="col-sm">
+                <span class="border rounded border-primary not-allowed">2</span>
+            </div>
+            <div class="col-sm">
+                <span class="border rounded border-primary">2</span>
+            </div>
         </div>
+    </div>
 
-        <table id="comments" class="table table-striped">
+    <div class="container">
+        <table id="comments" class="table">
             <thead>
             <tr>
                 <th width="10%">Author</th>

@@ -10,7 +10,7 @@ function loadComments () {
         this.source.addEventListener("message", function (event) {
 
             var obj = jQuery.parseJSON(event.data);
-            console.log(obj.id);
+            console.log(obj);
             var table = $("#comments");
             table.find("tr:gt(0)").remove();
 
@@ -22,6 +22,8 @@ function loadComments () {
                         "<td>" + value.time + "</td>" +
                     "</tr>");
             });
+
+
 
         });
 
