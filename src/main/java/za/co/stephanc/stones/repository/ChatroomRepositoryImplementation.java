@@ -1,11 +1,8 @@
 package za.co.stephanc.stones.repository;
 
 import org.springframework.stereotype.Repository;
-import reactor.core.publisher.DirectProcessor;
 import reactor.core.publisher.Flux;
-import reactor.core.publisher.FluxProcessor;
-import reactor.core.publisher.FluxSink;
-import za.co.stephanc.stones.model.chat.Chatroom;
+import za.co.stephanc.stones.model.Session;
 
 import java.time.Duration;
 import java.util.ArrayList;
@@ -15,35 +12,35 @@ import java.util.List;
 @Repository
 public class ChatroomRepositoryImplementation implements ChatroomRepository{
 
-    public List<Chatroom> chatrooms;
+    public List<Session> sessions;
 
     public ChatroomRepositoryImplementation(){
-        chatrooms = new ArrayList<>();
+        sessions = new ArrayList<>();
     }
 
-    public Flux<Chatroom> findById(String id){
+    public Flux<Session> findById(String id){
         return Flux.interval(Duration.ofMillis(1000))
                 .onBackpressureDrop()
                 .map( m -> getChatroom(m, id))
                 .flatMapIterable(x -> x);
     }
 
-    public Chatroom findOrCreateById(String id){
-        Chatroom room = this.chatrooms.stream()
+    public Session findOrCreateById(String id){
+        Session room = this.sessions.stream()
                 .filter(c -> c.getId().equalsIgnoreCase(id))
                 .findFirst()
                 .orElse(null);
 
         if (room == null) {
-            room = new Chatroom(id);
-            this.chatrooms.add(room);
+            room = new Session(id);
+            this.sessions.add(room);
         }
 
         return room;
     }
 
-    private List<Chatroom> getChatroom(Long interval, String id){
-        Chatroom room = findOrCreateById(id);
+    private List<Session> getChatroom(Long interval, String id){
+        Session room = findOrCreateById(id);
         return Arrays.asList(room);
     }
 }

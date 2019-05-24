@@ -106,4 +106,28 @@ public class Mancala {
                 .mapToInt(Cup::getStones)
                 .sum() == 0;
     }
+
+    public Boolean getWon() {
+        return isWon;
+    }
+
+    public void setWon(Boolean won) {
+        isWon = won;
+    }
+
+    public List<Cup> getCups() {
+        return cups;
+    }
+
+    public void setCups(List<Cup> cups) {
+        this.cups = cups;
+    }
+
+    public Player getActivePlayer() {
+        return activePlayer;
+    }
+
+    public void setActivePlayer(Player activePlayer) {
+        this.activePlayer = activePlayer;
+    }
 }
