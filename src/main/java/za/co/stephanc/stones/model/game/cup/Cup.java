@@ -6,17 +6,18 @@ import za.co.stephanc.stones.enums.Player;
 public abstract class Cup {
     Player owner;
     CupType type;
-    Integer stones;
+    int stones;
+    int index;
 
     public Cup(){
 
     }
 
-    public void increment(){
+    public void incrementStones(){
         this.addStones(1);
     }
 
-    public void addStones(Integer amount){
+    public void addStones(int amount){
         this.stones += amount;
     }
 
@@ -40,15 +41,23 @@ public abstract class Cup {
         this.type = type;
     }
 
-    public Integer getStones() {
+    public int getStones() {
         return stones;
     }
 
-    public void setStones(Integer stones) {
+    public int getIndex() {
+        return index;
+    }
+
+    public void setIndex(int index) {
+        this.index = index;
+    }
+
+    public void setStones(int stones) {
         this.stones = stones;
     }
 
-    public Cup(Player owner, CupType type, Integer stones) {
+    public Cup(Player owner, CupType type, int stones) {
         this.owner = owner;
         this.type = type;
         this.stones = stones;

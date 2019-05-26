@@ -1,81 +1,61 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.w3.org/1999/xhtml">
+<html xmlns:th="http://www.w3.org/1999/xhtml" xmlns="http://www.w3.org/1999/html">
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link data-th-href="@{/css/bootstrap.min.css}" rel="stylesheet">
     <link data-th-href="@{/css/main.css}" rel="stylesheet">
-    <script src="webjars/jquery/3.1.1/jquery.min.js"></script>
-    <script src="webjars/bootstrap/3.3.7-1/js/bootstrap.min.js"></script>
+    <link href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
 </head>
 <body>
-
 <div class="container">
-
     <div class="container">
         <div class="jumbotron">
-            <h1>Simple Chat Application</h1>
-            <p>Simple chat application built in Spring Boot, WebFlux, and Thymeleaf using Eventsourcing.</p>
+            <h1>Mancala</h1>
+            <p>Simple 2-player application built in Spring Boot, WebFlux, and Thymeleaf using Eventsourcing.</p>
         </div>
     </div>
-
-    <div class="container">
-        <form class="text-center border border-light p-5">
-            <input type="text" class="form-control mb-4" placeholder="Session ID" id="uuid" name="uuid" th:value="${uuid}" />
-            <input type="text" class="form-control mb-4" id="name" placeholder="Name" name="name" />
-            <input type="text" class="form-control mb-4" id="message" placeholder="Message" name="message"  />
-            <input type="button" id="send" value="Send" class="btn btn-info btn-block"/>
-        </form>
-    </div>
-
     <div class="container">
         <div class="row">
-            <div class="col-sm">
-                <span class="border rounded border-primary pointer">1</span>
-            </div>
-            <div class="col-sm">
-                <span class="border rounded border-primary not-allowed">1231</span>
-            </div>
-            <div class="col-sm">
-                <span class="border rounded border-primary">1</span>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-sm">
-                <span class="border rounded border-primary pointer">2</span>
-            </div>
-            <div class="col-sm">
-                <span class="border rounded border-primary not-allowed">2</span>
-            </div>
-            <div class="col-sm">
-                <span class="border rounded border-primary">2</span>
+            <div class="col-sm-6">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Start a new game</h5>
+                        <p class="card-text tex">Starts a new game of Mancala. Another player can join your game on a
+                            different machine or browser.</p>
+                        <form method="get" action="/new">
+                            <input type="submit" class="btn btn-primary" value="Start New Game">
+                        </form>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
-
     <div class="container">
-        <table id="comments" class="table">
-            <thead>
-            <tr>
-                <th width="10%">Author</th>
-                <th width="60%">Message</th>
-                <th width="30%">Date</th>
-            </tr>
-            </thead>
-            <tbody id="tbody">
-            <tr class="result" data-th-each="comment : ${comments}">
-                <td>[[${comment.author}]]</td>
-                <td>[[${comment.message}]]</td>
-                <td>[[${comment.timestamp}]]</td>
-            </tr>
-            </tbody>
-        </table>
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="card">
+                    <div class="card-body">
+                        <form method="get" action="/join">
+                            <h5 class="card-title">Join game</h5>
+                            <p class="card-text">Join an existing game
+                                <input type="text" class="form-control mb-4" placeholder="Session ID" name="sessionId" id="sessionId"/>
+                            </p>
+                            <input type="submit" class="btn btn-primary" value="Join Game">
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
-
 </div>
 
-<script data-th-src="@{/js/main.js}"></script>
+
+<script data-th-src="@{/js/index.js}"></script>
 
 </body>
 

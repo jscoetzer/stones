@@ -10,16 +10,16 @@ import java.util.Arrays;
 import java.util.List;
 
 @Repository
-public class ChatroomRepositoryImplementation implements ChatroomRepository{
+public class SessionRepositoryImplementation implements SessionRepository {
 
     public List<Session> sessions;
 
-    public ChatroomRepositoryImplementation(){
+    public SessionRepositoryImplementation(){
         sessions = new ArrayList<>();
     }
 
     public Flux<Session> findById(String id){
-        return Flux.interval(Duration.ofMillis(1000))
+        return Flux.interval(Duration.ofMillis(100))
                 .onBackpressureDrop()
                 .map( m -> getChatroom(m, id))
                 .flatMapIterable(x -> x);

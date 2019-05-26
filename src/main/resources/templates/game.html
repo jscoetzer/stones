@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link data-th-href="@{/css/bootstrap.min.css}" rel="stylesheet">
+    <link data-th-href="@{/css/main.css}" rel="stylesheet">
+    <link href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+</head>
+<body>
+
+<div class="container">
+
+    <div class="container">
+        <div class="jumbotron">
+            <h1>Mancala</h1>
+            <p>Simple chat application built in Spring Boot, WebFlux, and Thymeleaf using Eventsourcing.</p>
+        </div>
+    </div>
+
+    <div class="container">
+        <form class="text-center border border-light p-5">
+            <input type="text" class="form-control mb-4" placeholder="Session ID" id="uuid" name="uuid"
+                   th:value="${uuid}"/>
+            <input type="text" class="form-control mb-4" placeholder="Player" id="myPlayer" name="myPlayer"
+                   th:value="${myPlayer}"/>
+            <input type="text" class="form-control mb-4" id="activePlayer" name="activePlayer"/>
+            <input type="text" class="form-control mb-4" id="name" placeholder="Name" name="name"/>
+            <input type="text" class="form-control mb-4" id="message" placeholder="Message" name="message"/>
+            <input type="button" id="send" value="Send" class="btn btn-info btn-block"/>
+        </form>
+    </div>
+
+    <div class="alert alert-warning alert-dismissible fade show" role="alert" id="notYourTurnAlert" style="display: none">
+        <strong>Oops!</strong> It's not your turn. Wait for your opponent to finish his/her turn.
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+
+    <div class="container">
+        <h2>Mancala</h2>
+        <div class="row ">
+            <div class="col-2">Active Player</div>
+            <div class="col-10">Board</div>
+        </div>
+
+        <div class="row ">
+            <div class="col-2">
+                <span class="player opponent fas fa-arrow-alt-circle-right"></span>
+            </div>
+            <div id="opponentMancala" class="col card text-center bg-danger text-white opponent mancala 6"></div>
+            <div id="cup_12" class="col card text-center opponent cup bg-warning text-white 5"></div>
+            <div id="cup_11" class="col card text-center opponent cup bg-warning text-white 4"></div>
+            <div id="cup_10" class="col card text-center opponent cup bg-warning text-white 3"></div>
+            <div id="cup_9" class="col card text-center opponent cup bg-warning text-white 2"></div>
+            <div id="cup_8" class="col card text-center opponent cup bg-warning text-white 1"></div>
+            <div id="cup_7" class="col card text-center opponent cup bg-warning text-white 0"></div>
+            <div class="col text-center"></div>
+        </div>
+        <div class="row ">
+            <div class="col-2">
+                <span class="player my fas fa-arrow-alt-circle-right"></span>
+            </div>
+            <div class="col text-center"></div>
+            <div id="cup_0" class="col card text-center my cup bg-primary text-white 0"></div>
+            <div id="cup_1" class="col card text-center my cup bg-primary text-white 1"></div>
+            <div id="cup_2" class="col card text-center my cup bg-primary text-white 2"></div>
+            <div id="cup_3" class="col card text-center my cup bg-primary text-white 3"></div>
+            <div id="cup_4" class="col card text-center my cup bg-primary text-white 4"></div>
+            <div id="cup_5" class="col card text-center my cup bg-primary text-white 5"></div>
+            <div class="col card text-center bg-success text-white my mancala 6"></div>
+        </div>
+    </div>
+
+    <div class="container">
+        <table id="comments" class="table">
+            <thead>
+            <tr>
+                <th width="10%">Author</th>
+                <th width="60%">Message</th>
+                <th width="30%">Date</th>
+            </tr>
+            </thead>
+            <tbody id="tbody">
+            <tr class="result" data-th-each="comment : ${comments}">
+                <td>[[${comment.author}]]</td>
+                <td>[[${comment.message}]]</td>
+                <td>[[${comment.timestamp}]]</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+</div>
+
+<script data-th-src="@{/js/main.js}"></script>
+
+</body>
+
+</html>

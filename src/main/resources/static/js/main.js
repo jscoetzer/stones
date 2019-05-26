@@ -1,16 +1,20 @@
-function loadComments () {
+$(".my.cup").click(function(){
+    sowFunction(this);
+});
 
+function Session () {
+    this
     this.source = null;
-
     this.start = function () {
         console.log("Starting source");
         var uuid = $("#uuid").val();
-
         this.source = new EventSource("/chat?uuid=" + uuid);
         this.source.addEventListener("message", function (event) {
 
             var obj = jQuery.parseJSON(event.data);
-            console.log(obj);
+            $("#activePlayer").val(obj.mancala.activePlayer);
+            var myPlayer = $("#myPlayer").val();
+
             var table = $("#comments");
             table.find("tr:gt(0)").remove();
 
@@ -24,32 +28,45 @@ function loadComments () {
             });
 
 
+            var mine;
+            $.each(obj.mancala.cups, function(key, value){
+                mine = (value.owner === myPlayer) ? "my" : "opponent";
+                $("." + mine + "." + value.type.toLowerCase() +  "." + key % 7).html(value.stones).attr("game.html", key);
+            });
 
+            this.activePlayer = obj.mancala.activePlayer;
+            if (obj.mancala.activePlayer === myPlayer){
+                $(".my.player").show();
+                $(".opponent.player").hide();
+            } else {
+                $(".my.player").hide();
+                $(".opponent.player").show();
+            }
         });
 
         this.source.onerror = function () {
             this.close();
         };
-
     };
 
     this.stop = function() {
         console.log("Stopping source");
         this.source.close();
-    }
+    };
 }
 
-comment = new loadComments();
+session = new Session();
 
 /*
  * Register callbacks for starting and stopping the SSE controller.
  */
 window.onload = function() {
-    comment.start();
+    session.start();
 };
 window.onbeforeunload = function() {
-    comment.stop();
+    session.stop();
 };
+
 $("#send").click(function(){
     var id = $("#uuid").val();
     var sender = $("#name").val();
@@ -64,3 +81,25 @@ $("#send").click(function(){
         }
     });
 });
+
+var sowFunction = function sow(control){
+    var id = $("#uuid").val();
+    var myPlayer = $("#myPlayer").val();
+    var activePlayer = $("#activePlayer").val();
+    var index = $(control).attr("game.html");
+
+    if (activePlayer != myPlayer){
+        $("#notYourTurnAlert").show();
+        return;
+    }
+
+    $.ajax({
+        url: "/sow?id=" + id + "&index=" + index,
+        async: true,
+        method: "GET",
+        success: function(result){
+            $("#message").val("");
+        }
+    });
+}
+

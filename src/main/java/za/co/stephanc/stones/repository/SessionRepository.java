@@ -4,7 +4,7 @@ import reactor.core.publisher.Flux;
 import za.co.stephanc.stones.model.Session;
 
 
-public interface ChatroomRepository {
+public interface SessionRepository {
 
     Session findOrCreateById(String id);
 
