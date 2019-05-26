@@ -42,7 +42,6 @@ public class Mancala {
         currentCup.empty();
 
         while(stonesInHand > 0){
-
             logger.info("Stones: " + stonesInHand + " selected: " + selectedCup + " index: " + currentIndex + " player: " + activePlayer);
 
             //First, get the next cup in the sequence
@@ -59,7 +58,7 @@ public class Mancala {
         //If the last stone landed in the current player's previously empty cup, take the opposite cup's stones + current cup's stone and add to score
         //Finally, empty both cups
         if (currentCup.getOwner().equals(activePlayer) && currentCup.getType().equals(CupType.CUP) && currentCup.getStones() == 1){
-            logger.info("Stealing opponent's stones for cup " + currentIndex);
+            logger.info("Stealing opponent's stones for cup " + currentIndex + " from " + this.getOppositeCupIndex(currentIndex));
             Cup oppositeCup = this.getCup(this.getOppositeCupIndex(currentIndex));
             Cup mancala = this.getPlayerMancalaCup();
             mancala.addStones(oppositeCup.getStones() + 1);
@@ -78,7 +77,7 @@ public class Mancala {
         }
     }
 
-    private void setGameWinner(){
+    protected void setGameWinner(){
         this.isGameOver = true;
         this.winner = Arrays.stream(Player.values())
                 .max(Comparator.comparing(this::getSumOfPlayerStones))
@@ -96,7 +95,7 @@ public class Mancala {
         return this.cups.get(index);
     }
 
-    private Cup getPlayerMancalaCup(){
+    public Cup getPlayerMancalaCup(){
         return this.cups.stream()
                 .filter(cup -> cup.getType().equals(CupType.MANCALA) && cup.getOwner().equals(activePlayer))
                 .findFirst()
