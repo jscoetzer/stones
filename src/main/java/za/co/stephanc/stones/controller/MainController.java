@@ -7,7 +7,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
-import za.co.stephanc.stones.model.game.Mancala;
+
+import java.util.UUID;
 
 @Controller
 public class MainController {
@@ -21,8 +22,8 @@ public class MainController {
 
     @GetMapping("/new")
     public String newGame(Model model) {
-        //model.addAttribute("uuid", UUID.randomUUID().toString());
-        model.addAttribute("uuid", "f691fd55-2e44-4238-8eda-76b2ed53f3e2");
+        model.addAttribute("uuid", UUID.randomUUID().toString());
+        //model.addAttribute("uuid", "f691fd55-2e44-4238-8eda-76b2ed53f3e2");
         model.addAttribute("myPlayer", "A");
         return "game";
     }
@@ -31,7 +32,7 @@ public class MainController {
     public ModelAndView joinGame(@RequestParam String sessionId) {
         logger.info("Joining game session " + sessionId);
         ModelAndView model = new ModelAndView();
-        model.addObject("uuid", "f691fd55-2e44-4238-8eda-76b2ed53f3e2");
+        model.addObject("uuid", sessionId);
         model.addObject("myPlayer", "B");
         model.setViewName("game");
         return model;

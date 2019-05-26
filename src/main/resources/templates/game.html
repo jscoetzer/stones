@@ -24,20 +24,33 @@
     </div>
 
     <div class="container">
-        <form class="text-center border border-light p-5">
-            <input type="text" class="form-control mb-4" placeholder="Session ID" id="uuid" name="uuid"
-                   th:value="${uuid}"/>
-            <input type="text" class="form-control mb-4" placeholder="Player" id="myPlayer" name="myPlayer"
-                   th:value="${myPlayer}"/>
-            <input type="text" class="form-control mb-4" id="activePlayer" name="activePlayer"/>
-            <input type="text" class="form-control mb-4" id="name" placeholder="Name" name="name"/>
-            <input type="text" class="form-control mb-4" id="message" placeholder="Message" name="message"/>
-            <input type="button" id="send" value="Send" class="btn btn-info btn-block"/>
-        </form>
+        <div class="row">
+            <div class="col">
+                <form class="text-center border border-light p-5">
+                    <span>Game session ID:</span><input type="text" class="form-control mb-4" placeholder="Session ID" id="uuid" name="uuid" readonly="readonly" th:value="${uuid}"/>
+                    <input type="text" class="form-control mb-4" placeholder="Player" id="myPlayer" name="myPlayer" th:value="${myPlayer}"  style="display: none;"/>
+                    <input type="text" class="form-control mb-4" id="activePlayer" name="activePlayer"  style="display: none;"/>
+                </form>
+            </div>
+        </div>
     </div>
 
     <div class="alert alert-warning alert-dismissible fade show" role="alert" id="notYourTurnAlert" style="display: none">
         <strong>Oops!</strong> It's not your turn. Wait for your opponent to finish his/her turn.
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+
+    <div class="alert alert-success alert-dismissible fade show" role="alert" id="winnerAlert" style="display: none">
+        <strong>Yay!</strong> You've won this game! Click <a href="/" class="alert-link">here</a> to start a new game or join an existing one.
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+
+    <div class="alert alert-danger alert-dismissible fade show" role="alert" id="loserAlert" style="display: none">
+        <strong>Awww...</strong> You've lost this game. Click <a href="/" class="alert-link">here</a> to start a new game or join an existing one.
         <button type="button" class="close" data-dismiss="alert" aria-label="Close">
             <span aria-hidden="true">&times;</span>
         </button>
@@ -76,25 +89,6 @@
             <div id="cup_5" class="col card text-center my cup bg-primary text-white 5"></div>
             <div class="col card text-center bg-success text-white my mancala 6"></div>
         </div>
-    </div>
-
-    <div class="container">
-        <table id="comments" class="table">
-            <thead>
-            <tr>
-                <th width="10%">Author</th>
-                <th width="60%">Message</th>
-                <th width="30%">Date</th>
-            </tr>
-            </thead>
-            <tbody id="tbody">
-            <tr class="result" data-th-each="comment : ${comments}">
-                <td>[[${comment.author}]]</td>
-                <td>[[${comment.message}]]</td>
-                <td>[[${comment.timestamp}]]</td>
-            </tr>
-            </tbody>
-        </table>
     </div>
 
 </div>

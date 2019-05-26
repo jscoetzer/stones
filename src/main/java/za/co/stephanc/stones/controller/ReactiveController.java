@@ -18,24 +18,12 @@ public class ReactiveController {
     @Autowired
     private SessionRepository sessionRepository;
 
-    @GetMapping(path = "/chat", produces = MediaType.TEXT_EVENT_STREAM_VALUE)
+    @GetMapping(path = "/session", produces = MediaType.TEXT_EVENT_STREAM_VALUE)
     public Flux<Session> chatEvent(@RequestParam final String uuid){
         logger.info("Fluxing " + uuid);
 
         return sessionRepository.findById(uuid);
     }
-
-    @GetMapping(path = "/message")
-    public void addMesssage(
-            @RequestParam final String id,
-            @RequestParam final String sender,
-            @RequestParam final String message
-    ){
-        logger.info("Creating new message");
-        Session session = sessionRepository.findOrCreateById(id);
-        session.addMessage(sender, message);
-    }
-
 
     @GetMapping(path = "/sow")
     public void addMesssage(

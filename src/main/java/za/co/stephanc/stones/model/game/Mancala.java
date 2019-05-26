@@ -11,6 +11,7 @@ import za.co.stephanc.stones.model.game.cup.PlayerCup;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Comparator;
 import java.util.List;
 import java.util.stream.IntStream;
 
@@ -42,7 +43,7 @@ public class Mancala {
 
         while(stonesInHand > 0){
 
-            logger.info("Stones: " + stonesInHand + "selected: " + selectedCup + " index: " + currentIndex + " player: " + activePlayer);
+            logger.info("Stones: " + stonesInHand + " selected: " + selectedCup + " index: " + currentIndex + " player: " + activePlayer);
 
             //First, get the next cup in the sequence
             currentIndex = this.getNextCupIndex(currentIndex);
@@ -79,6 +80,16 @@ public class Mancala {
 
     private void setGameWinner(){
         this.isGameOver = true;
+        this.winner = Arrays.stream(Player.values())
+                .max(Comparator.comparing(this::getSumOfPlayerStones))
+                .get();
+    }
+
+    private int getSumOfPlayerStones(Player player){
+        return this.cups.stream()
+                .filter(cup -> cup.getType().equals(CupType.MANCALA) && cup.getOwner().equals(player))
+                .mapToInt(Cup::getStones)
+                .sum();
     }
 
     private Cup getCup(int index){
@@ -117,10 +128,14 @@ public class Mancala {
     }
 
     private Boolean checkGameOver(){
-        return this.cups.stream()
+         int sumStones = this.cups.stream()
                 .filter(cup -> cup.getType().equals(CupType.CUP) && cup.getOwner().equals(activePlayer))
                 .mapToInt(Cup::getStones)
-                .sum() == 0;
+                .sum();
+
+         logger.info("Sum stones = " + sumStones);
+        return sumStones == 0;
+
     }
 
     public Boolean getIsGameOver() {
@@ -145,5 +160,14 @@ public class Mancala {
 
     public void setActivePlayer(Player activePlayer) {
         this.activePlayer = activePlayer;
+    }
+
+
+    public Player getWinner() {
+        return winner;
+    }
+
+    public void setWinner(Player winner) {
+        this.winner = winner;
     }
 }

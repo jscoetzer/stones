@@ -3,31 +3,32 @@ $(".my.cup").click(function(){
 });
 
 function Session () {
-    this
     this.source = null;
     this.start = function () {
         console.log("Starting source");
         var uuid = $("#uuid").val();
-        this.source = new EventSource("/chat?uuid=" + uuid);
+        this.source = new EventSource("/session?uuid=" + uuid);
         this.source.addEventListener("message", function (event) {
 
             var obj = jQuery.parseJSON(event.data);
-            $("#activePlayer").val(obj.mancala.activePlayer);
+            console.log(obj);
+
+
+
+
             var myPlayer = $("#myPlayer").val();
+            console.log(myPlayer + " " + obj.mancala.isGameOver + " " + obj.mancala.winner);
+            if (obj.mancala.isGameOver){
+                if (obj.mancala.winner === myPlayer){
+                    $("#winnerAlert").show();
+                } else {
+                    $("#loserAlert").show()
+                }
+                $(".my.cup").off("click");
 
-            var table = $("#comments");
-            table.find("tr:gt(0)").remove();
+            }
 
-            $.each( obj.messages, function(key, value){
-                console.log(value);
-                table.append("<tr>" +
-                        "<td>" + value.sender + "</td>" +
-                        "<td>" + value.content + "</td>" +
-                        "<td>" + value.time + "</td>" +
-                    "</tr>");
-            });
-
-
+            $("#activePlayer").val(obj.mancala.activePlayer);
             var mine;
             $.each(obj.mancala.cups, function(key, value){
                 mine = (value.owner === myPlayer) ? "my" : "opponent";
