@@ -38,10 +38,10 @@ public class MancalaTest {
         Mancala mancala = new Mancala(2,3);
         mancala.sow(0);
 
-        assert mancala.getCups().get(0).getStones() == 0;
-        assert mancala.getCups().get(1).getStones() == 3;
-        assert mancala.getCups().get(2).getStones() == 3;
-        assert mancala.getCups().get(3).getStones() == 0;
+        assertEquals(0, mancala.getCups().get(0).getStones());
+        assertEquals(3, mancala.getCups().get(1).getStones());
+        assertEquals(3, mancala.getCups().get(2).getStones());
+        assertEquals(0, mancala.getCups().get(3).getStones());
     }
 
     @Test

@@ -11,10 +11,6 @@ function Session () {
         this.source.addEventListener("message", function (event) {
 
             var obj = jQuery.parseJSON(event.data);
-            console.log(obj);
-
-
-
 
             var myPlayer = $("#myPlayer").val();
             console.log(myPlayer + " " + obj.mancala.isGameOver + " " + obj.mancala.winner);

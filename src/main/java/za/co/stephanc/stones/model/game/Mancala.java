@@ -42,7 +42,7 @@ public class Mancala {
         currentCup.empty();
 
         while(stonesInHand > 0){
-            logger.info("Stones: " + stonesInHand + " selected: " + selectedCup + " index: " + currentIndex + " player: " + activePlayer);
+            logger.debug("Stones: " + stonesInHand + " selected: " + selectedCup + " index: " + currentIndex + " player: " + activePlayer);
 
             //First, get the next cup in the sequence
             currentIndex = this.getNextCupIndex(currentIndex);

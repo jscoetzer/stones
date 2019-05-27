@@ -19,7 +19,7 @@ public class SessionRepositoryImplementation implements SessionRepository {
     }
 
     public Flux<Session> findById(String id){
-        return Flux.interval(Duration.ofMillis(100))
+        return Flux.interval(Duration.ofMillis(200))
                 .onBackpressureDrop()
                 .map( m -> getChatroom(m, id))
                 .flatMapIterable(x -> x);
